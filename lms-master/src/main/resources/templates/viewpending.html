@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Pending Applications</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<p class="mt-2"> You are logged in as <span th:text="${user.username}"></span></p>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table table-bordered">	
+				<thead>
+					<tr>
+						<th>Employee Id</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Type</th>
+						<th>Reason</th>
+						<th>Status</th>
+						<th>Manager Comments</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="leave : ${subleave}" th:if="${leave.status == 'Applied' || leave.status == 'Updated'}">
+					       <td th:text="${leave.employeeid}"></td>
+					       <td th:text="${leave.startDate}"></td>
+					       <td th:text="${leave.endDate}"></td>
+					       <td th:text="${leave.leaveType}"></td>
+					       <td th:text="${leave.reason}"></td>
+					       <td th:text="${leave.status}"></td>
+					       <td th:text="${leave.managerComment}"></td>
+					       <td >
+					       <a th:href="@{'/approveform/'+${leave.leaveid}}">Approve</a><br />
+					       <a th:href="@{'/rejectform/'+${leave.leaveid}}">Reject</a></td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+<p><a th:href="@{/index}" >Back to Index</a></p>
+</body>
+</html>

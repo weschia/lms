@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Leave Rejection</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title"> You are logged in as <span th:text="${user.username}"></span></h5>
+					<h5 class="card-title"> You are rejecting leave for <span th:text="${subordinate}"></span></h5>
+					<form action="#" th:action="@{'/reject/'+${leave.leaveid}}" th:object="${leave}" method="post">
+						<input type="hidden" th:field="*{leaveid}"/>
+						<input type="hidden" th:field="*{employeeid}"/>
+						
+						<div class="form-group">
+							<label>Start Date :</label>
+							<input class="form-control" type="text" th:field="*{startDate}" readonly/>
+						</div>
+						
+						<div class="form-group">
+							<label>End Date :</label>
+							<input class="form-control" type="text" th:field="*{endDate}" readonly/>
+						</div>
+						
+						
+						<div class="form-group">
+							<label>Type :</label>
+							<input class="form-control" type="text" th:field="*{leaveType}" readonly/>
+						</div>
+						
+						<div class="form-group">
+							<label>Reason :</label>
+							<input class="form-control" type="text" th:field="*{reason}" readonly/>
+						</div>
+						
+						<div class="form-group">
+							<label>Comment :</label>
+							<input class="form-control" type="text" th:field="*{managerComment}"/>
+						</div>
+
+						<input type="submit" class="btn btn-outline-primary" value="Reject"/>
+						<p class="text-danger" th:text="${errormsg}"></p>
+						
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-8 offset-md-2">
+			<p>Other employees on leave during this period</p>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Employee Id</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Type</th>
+						<th>Reason</th>
+						<th>Status</th>
+						<th>Manager Comments</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr th:each="l : ${conflicts}" >
+					       <td th:text="${l.employeeid}"></td>
+					       <td th:text="${l.startDate}"></td>
+					       <td th:text="${l.endDate}"></td>
+					       <td th:text="${l.leaveType}"></td>
+					       <td th:text="${l.reason}"></td>
+					       <td th:text="${l.status}"></td>
+					       <td th:text="${l.managerComment}"></td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+<p><a th:href="@{/viewsubleave}" >Back to Subordinate Leave</a></p>
+</body>
+</html>

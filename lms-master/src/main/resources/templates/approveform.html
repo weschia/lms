@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Leave Approval</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title"> You are logged in as <span th:text="${user.username}"></span></h5>
+					<h5 class="card-title"> You are approving leave for <span th:text="${subordinate}"></span></h5>
+					<form action="#" th:action="@{'/approve/'+${leave.leaveid}}" th:object="${leave}" method="post">
+
+						<input class="form-control" type="hidden" th:field="*{leaveid}"/>
+						<input type="hidden" th:field="*{employeeid}"/>
+						
+						<input class="form-control mt-2" type="text" th:field="*{startDate}" readonly/>
+						
+						<input class="form-control mt-2" type="text" th:field="*{endDate}" readonly/>
+						
+						<input class="form-control mt-2" type="text" th:field="*{leaveType}"readonly/>
+						
+						<input class="form-control mt-2" type="text" th:field="*{reason}" readonly/>
+						
+						<label>Comments : </label>
+						<input class="form-control" type="text" th:field="*{managerComment}" />
+						
+						<input class="btn btn-outline-primary mt-2" type="submit" value="Approve"/>
+					
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-8 offset-md-2">
+			<p>Other employees on leave during this period</p>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Employee Id</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Type</th>
+						<th>Reason</th>
+						<th>Status</th>
+						<th>Manager Comments</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr th:each="l : ${conflicts}" >
+					       <td th:text="${l.employeeid}"></td>
+					       <td th:text="${l.startDate}"></td>
+					       <td th:text="${l.endDate}"></td>
+					       <td th:text="${l.leaveType}"></td>
+					       <td th:text="${l.reason}"></td>
+					       <td th:text="${l.status}"></td>
+					       <td th:text="${l.managerComment}"></td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<p><a th:href="@{/viewsubleave}" >Back to Subordinate Leave</a></p>
+</body>
+</html>

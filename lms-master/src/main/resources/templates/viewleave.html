@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View Leave</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			<table class="table table-bordered">	
+				<thead>
+					<tr>
+						<th scope="col">Annual Leave</th>
+						<th scope="col">Medical Leave</th>
+						<th scope="col">Compensation Leave</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${user.annualLeave}">
+						</td>
+						
+						<td th:text="${user.medicalLeave}">
+						</td>
+						
+						<td th:text="${user.compLeave}">
+						</td>
+					</tr>
+				</tbody>
+		</table>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-12 col-md-8 offset-md-2">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">Start Date</th>
+						<th scope="col">End Date</th>
+						<th scope="col">Type</th>
+						<th scope="col">Reason</th>
+						<th scope="col">Status</th>
+						<th scope="col">Manager Comments</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="l : ${leave}" >
+					       <td th:text="${l.startDate}"></td>
+					       <td th:text="${l.endDate}"></td>
+					       <td th:text="${l.leaveType}"></td>
+					       <td th:text="${l.reason}"></td>
+					       <td th:text="${l.status}"></td>
+					       <td th:text="${l.managerComment}"></td>
+					       <td th:if="${l.status == 'Updated' || l.status == 'Applied'}">
+					       <a th:href="@{'/updateform/'+${l.leaveid}}">Update</a><br />
+					       <a th:href="@{'/delete/'+${l.leaveid}}">Delete</a></td>
+					       <td th:if="${l.status == 'Approved'}">
+					       <a th:href="@{'/cancel/'+${l.leaveid}}">Cancel</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>
+
+
+
+<a th:href="@{/applyform}">Apply for Leave</a> &nbsp; | &nbsp;
+<a th:href="@{/index}" >Back to Index</a>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Index</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<p class="mt-2">Welcome, <span th:text="${user.username}"></span>!</p>
+
+<ul class="nav justify-content-center">
+	<li class="nav-item">
+		<a th:href="@{/applyform}">Apply for Leave</a> &nbsp; | &nbsp;
+	</li>
+	<li class="nav-item">
+		<a th:href="@{/viewleave}">View Leave</a>&nbsp; | &nbsp;
+	</li>
+	<li class="nav-item" th:if="${user.employeeType == 'Manager'}">
+		<a th:href="@{/viewsubleave}" >View Subordinate Leave</a>&nbsp; | &nbsp;
+	</li>
+	<li class="nav-item" th:if="${user.employeeType == 'Manager'}">
+		<a th:href="@{/viewpending}" >View Pending Leave Applications</a>&nbsp; | &nbsp;
+	</li>
+	<li class="nav-item">
+		<a th:href="@{'/movementregister/'+${year}+'/'+${month}}" >View Movement Register</a>
+		&nbsp; | &nbsp;
+	</li>
+	<li class="nav-item">
+		<a th:href="@{/logout}">Logout</a>
+	</li>
+	
+</ul>
+
+</body>
+</html>

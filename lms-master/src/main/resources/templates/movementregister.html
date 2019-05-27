@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Movement Register</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<p class="mt-2">Movement Register for the month of <span th:text="${currentmonth}"></span>, <span th:text="${currentyear}"></span></p>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Employee ID</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Type</th>
+					</tr>	
+				</thead>
+				<tbody>
+					<tr th:each="l : ${mregister}" >
+						   <td th:text="${l.employeeid}"></td>
+					       <td th:text="${l.startDate}"></td>
+					       <td th:text="${l.endDate}"></td>
+					       <td th:text="${l.leaveType}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 offset-md-3">
+			<p>
+				<a th:href="@{'/movementregister/'+${prevyear}+'/'+${prevmonth}}" >Previous month</a> &nbsp; | &nbsp;
+				<a th:href="@{'/movementregister/'+${nextyear}+'/'+${nextmonth}}" >Next month</a> 
+			</p>
+			<form action="/movementregister/" method="post">
+				<div class="form-group">
+					<label>Go to :</label>
+					<select class="form-control" id="month" name="month" required>
+						<option label="Select Month"></option>
+					    <option th:value="0" th:text="January"></option>
+					    <option th:value="1" th:text="February"></option>
+					    <option th:value="2" th:text="March"></option>
+					    <option th:value="3" th:text="April"></option>
+					    <option th:value="4" th:text="May"></option>
+					    <option th:value="5" th:text="June"></option>
+					    <option th:value="6" th:text="July"></option>
+					    <option th:value="7" th:text="August"></option>
+					    <option th:value="8" th:text="September"></option>
+					    <option th:value="9" th:text="October"></option>
+					    <option th:value="10" th:text="November"></option>
+					    <option th:value="11" th:text="December"></option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<select class="form-control" id="year" name="year">
+					    <option th:value="${currentyear}-2" th:text="${currentyear}-2"></option>
+					    <option th:value="${currentyear}-1" th:text="${currentyear}-1"></option>
+					    <option th:value="${currentyear}" th:text="${currentyear}" selected="selected"></option>
+					    <option th:value="${currentyear}+1" th:text="${currentyear}+1"></option>
+					    <option th:value="${currentyear}+2" th:text="${currentyear}+2"></option>
+				</select>
+				</div>
+				<input class="btn btn-outline-primary" type="submit" value="Go"/>
+			
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<p><a th:href="@{/index}" >Back to Index</a></p>
+</body>
+</html>

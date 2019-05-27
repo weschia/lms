@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+<link href="http://localhost:8080/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+	<div class="row mt-3">
+		<div class="col-sm-12 col-md-4 offset-md-4">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Login Form</h5>
+					<hr/>
+					<form action="#" th:action="@{/login}" th:object="${user}" method="post">
+						<div class="form-group">
+							<label >Username</label>
+							<input type="text" class="form-control" th:field="*{username}"/>
+							<p th:if="${#fields.hasErrors('username')}" class="text-danger" th:errors="*{username}"></p>
+						</div>
+						
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" class="form-control" th:field="*{password}"/>
+							<p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p> 
+						</div>
+					
+						<input type="submit" class="btn btn-outline-primary" value="Submit"/>
+						<p class="text-danger" th:text="${loginstatus}"></p>
+						</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
